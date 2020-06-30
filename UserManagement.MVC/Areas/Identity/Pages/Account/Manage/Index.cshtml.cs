@@ -120,7 +120,7 @@ namespace UserManagement.MVC.Areas.Identity.Pages.Account.Manage
             }
             if (user.UsernameChangeLimit > 0)
             {
-                if (Input.Username != Username)
+                if (Input.Username != user.UserName)
                 {
                     var userNameExists = await _userManager.FindByNameAsync(Input.Username);
                     if (userNameExists != null)
