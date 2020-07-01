@@ -1,0 +1,46 @@
+﻿@using UserManagement.MVC.Models
+@model List<UserManagement.MVC.Models.UserRolesViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>User Roles</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Super Admin</th>
+            <th>Admin</th>
+            <th>Moderator</th>
+            <th>Basic User</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+        <tr>
+            <td>@user.FirstName</td>
+            <td>@user.LastName</td>
+            <td>@user.Email</td>
+            <td>
+                <input type="checkbox" readonly disabled checked="@user.Roles.Contains("SuperAdmin")" />
+            </td>
+            <td>
+                <input type="checkbox" readonly disabled checked="@user.Roles.Contains("Admin")" />
+            </td>
+            <td>
+                <input type="checkbox" readonly disabled checked="@user.Roles.Contains("Moderator")" />
+            </td>
+            <td>
+                <input type="checkbox" readonly disabled checked="@user.Roles.Contains("Basic")" />
+            </td>
+        </tr>
+        }
+
+    </tbody>
+</table>
