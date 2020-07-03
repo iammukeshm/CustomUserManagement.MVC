@@ -20,5 +20,11 @@ namespace UserManagement.MVC.Controllers
             var roles = await _roleManager.Roles.ToListAsync();
             return View(roles);
         }
+        [HttpPost]
+        public async Task<IActionResult> AddRole(string roleName)
+        {
+            await _roleManager.CreateAsync(new IdentityRole(roleName.Trim()));
+            return RedirectToAction("Index");
+        }
     }
 }

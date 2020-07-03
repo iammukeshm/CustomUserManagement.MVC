@@ -5,9 +5,9 @@
 }
 
 <h1>Role Manager</h1>
-<form method="post">
+<form method="post" asp-action="AddRole" asp-controller="RoleManager">
     <div class="input-group">
-        <input class="form-control w-25">
+        <input name="roleName" class="form-control w-25">
         <span class="input-group-btn">
             <button class="btn btn-info">Add New Role</button>
         </span>
