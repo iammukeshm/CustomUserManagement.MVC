@@ -23,7 +23,10 @@ namespace UserManagement.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> AddRole(string roleName)
         {
-            await _roleManager.CreateAsync(new IdentityRole(roleName.Trim()));
+            if (roleName != null)
+            {
+                await _roleManager.CreateAsync(new IdentityRole(roleName.Trim()));
+            }
             return RedirectToAction("Index");
         }
     }
