@@ -17,9 +17,7 @@ namespace UserManagement.MVC
     {
         public async static Task Main(string[] args)
         {
-            var host = CreateHostBuilder(args)
-                         .Build();
-
+            var host = CreateHostBuilder(args).Build();
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -38,7 +36,6 @@ namespace UserManagement.MVC
                     logger.LogError(ex, "An error occurred seeding the DB.");
                 }
             }
-
             host.Run();
         }
 

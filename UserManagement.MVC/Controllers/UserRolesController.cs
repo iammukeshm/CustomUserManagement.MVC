@@ -38,9 +38,7 @@ namespace UserManagement.MVC.Controllers
         public async Task<IActionResult> Manage(string userId)
         {
             ViewBag.userId = userId;
-
             var user = await _userManager.FindByIdAsync(userId);
-
             if (user == null)
             {
                 ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";
@@ -48,7 +46,6 @@ namespace UserManagement.MVC.Controllers
             }
             ViewBag.UserName = user.UserName;
             var model = new List<ManageUserRolesViewModel>();
-
             foreach (var role in _roleManager.Roles)
             {
                 var userRolesViewModel = new ManageUserRolesViewModel
@@ -56,7 +53,6 @@ namespace UserManagement.MVC.Controllers
                     RoleId = role.Id,
                     RoleName = role.Name
                 };
-
                 if (await _userManager.IsInRoleAsync(user, role.Name))
                 {
                     userRolesViewModel.Selected = true;
@@ -65,39 +61,31 @@ namespace UserManagement.MVC.Controllers
                 {
                     userRolesViewModel.Selected = false;
                 }
-
                 model.Add(userRolesViewModel);
             }
-
             return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Manage(List<ManageUserRolesViewModel> model, string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-
             if (user == null)
             {
                 return View();
             }
-
             var roles = await _userManager.GetRolesAsync(user);
             var result = await _userManager.RemoveFromRolesAsync(user, roles);
-
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Cannot remove user existing roles");
                 return View(model);
             }
-
             result = await _userManager.AddToRolesAsync(user, model.Where(x => x.Selected).Select(y => y.RoleName));
-
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Cannot add selected roles to user");
                 return View(model);
             }
-
             return RedirectToAction("Index");
         }
         private async Task<List<string>> GetUserRoles(ApplicationUser user)

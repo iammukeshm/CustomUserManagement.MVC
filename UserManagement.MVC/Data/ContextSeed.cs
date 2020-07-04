@@ -20,19 +20,19 @@ namespace UserManagement.MVC.Data
         public static async Task SeedSuperAdminAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             //Seed Default User
-            var defaultUser = new ApplicationUser 
-            { 
-                UserName = "superadmin", 
+            var defaultUser = new ApplicationUser
+            {
+                UserName = "superadmin",
                 Email = "superadmin@gmail.com",
                 FirstName = "Mukesh",
                 LastName = "Murugan",
-                EmailConfirmed = true, 
-                PhoneNumberConfirmed = true 
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true
             };
             if (userManager.Users.All(u => u.Id != defaultUser.Id))
             {
                 var user = await userManager.FindByEmailAsync(defaultUser.Email);
-                if(user==null)
+                if (user == null)
                 {
                     await userManager.CreateAsync(defaultUser, "123Pa$$word.");
                     await userManager.AddToRoleAsync(defaultUser, Enums.Roles.Basic.ToString());
@@ -40,7 +40,7 @@ namespace UserManagement.MVC.Data
                     await userManager.AddToRoleAsync(defaultUser, Enums.Roles.Admin.ToString());
                     await userManager.AddToRoleAsync(defaultUser, Enums.Roles.SuperAdmin.ToString());
                 }
-               
+
             }
         }
     }

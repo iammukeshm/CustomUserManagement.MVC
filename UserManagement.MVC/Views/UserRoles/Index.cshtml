@@ -4,13 +4,10 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h1>User Roles</h1>
-
 <table class="table table-striped">
     <thead>
         <tr>
-
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
@@ -21,16 +18,15 @@
     <tbody>
         @foreach (var user in Model)
         {
-        <tr>
-            <td>@user.FirstName</td>
-            <td>@user.LastName</td>
-            <td>@user.Email</td>
-            <td>@string.Join(" , ",user.Roles.ToList())</td>
-            <td>
-                <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">Manage Roles</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.Email</td>
+                <td>@string.Join(" , ", user.Roles.ToList())</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">Manage Roles</a>
+                </td>
+            </tr>
         }
-
     </tbody>
 </table>
